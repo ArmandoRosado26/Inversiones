@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inversión de Cuentahabientes</title>
+    <link rel="stylesheet" href="style.css"> <!-- Ya tienes el archivo CSS -->
+</head>
+<body>
+    <div class="container">
+        <!-- Columna Izquierda - Formulario -->
+        <div class="form-column">
+            <h1>Registro de Inversión</h1>
+            <form  action="process.php" method="POST">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="telefono">Teléfono:</label>
+                <input type="text" id="telefono" name="telefono" required>
+
+                <label for="monto">Monto a Invertir:</label>
+                <input type="number" id="monto" name="monto" min="5000" required>
+
+                <label for="plazo">Plazo (días):</label>
+                <input type="number" id="plazo" name="plazo" min="1" max="365" required>
+
+                <button type="submit">Registrar Inversión</button>
+            </form>
+        </div>
+
+        <!-- Columna Derecha - Tablas -->
+        <div class="table-column">
+            <!-- Sección 1: Tabla con Cuentahabientes -->
+            <div class="table-section">
+                <h2>Lista de Cuentahabientes</h2>
+                <table id="cuentahabientesTable">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Teléfono</th>
+                        <th>Monto de Inversión</th>
+                        <th>Plazo (días)</th>
+                        <th>Interés Generado</th>
+                    </tr>
+                    <!-- Aquí se llenarán los resultados de los cuentahabientes -->
+                </table>
+            </div>
+            
+            <script>
+                function fetchCuentahabientes() {
+                    const xhr = new XMLHttpRequest();
+                    xhr.open("GET", "queries2.php?action=get_all_cuentahabientes", true);
+                    xhr.onload = function () {
+                        if (xhr.status === 200) {
+                            const table = document.getElementById('cuentahabientesTable');
+                            // Limpia la tabla antes de agregar los nuevos resultados
+                            table.innerHTML = `
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Email</th>
+                                    <th>Teléfono</th>
+                                    <th>Monto de Inversión</th>
+                                    <th>Plazo (días)</th>
+                                    <th>Interés Generado</th>
+                                </tr>`;
+                            
+                            // Agrega los nuevos resultados a la tabla
+                            table.innerHTML += xhr.responseText;
+                        } else {
+                            console.error("Error en la carga de datos.");
+                        }
+                    };
+                    xhr.send();
+                }
+
+                // Llama a la función para cargar los cuentahabientes al cargar la página
+                window.onload = fetchCuentahabientes;
+            </script>
+
+            <!-- Sección 2: Consultas -->
+            <div class="query-section">
+                <h2>Realizar Consulta</h2>
+                <button onclick="fetchData('min_investment')">Consultar inversiones de $5,000</button>
+                <button onclick="fetchData('max_term')">Consultar inversiones a 365 días</button>
+                <button onclick="fetchData('first_interest')">Consultar interés del primer ID</button>
+          
+
+            <!-- Resultados de las consultas -->
+            <div id="query-results" class="query-results"></div>
+        </div>
+    </div>
+    </div>
+
+    <script>
+        function fetchData(action) {
+            const xhr = new XMLHttpRequest();
+            xhr.open("GET", `queries.php?action=${action}`, true);
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    document.getElementById('query-results').innerHTML = xhr.responseText;
+                } else {
+                    document.getElementById('query-results').innerHTML = "Error en la carga de datos.";
+                }
+            };
+            xhr.send();
+        }
+    </script>
+</body>
+</html>
