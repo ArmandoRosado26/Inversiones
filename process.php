@@ -1,11 +1,11 @@
 <?php
-session_start(); // Inicia la sesión
+session_start(); 
 include 'db.php';
 
-// Verifica si hay un mensaje de éxito almacenado
+
 if (isset($_SESSION['mensaje'])) {
     echo '<div style="color: green; text-align: center;">' . $_SESSION['mensaje'] . '</div>'; // Muestra el mensaje
-    unset($_SESSION['mensaje']); // Elimina el mensaje de la sesión
+    unset($_SESSION['mensaje']); 
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {

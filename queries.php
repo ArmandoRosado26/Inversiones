@@ -31,17 +31,15 @@ switch ($action) {
             ORDER BY CUENTAHABIENTE.id_cuentahabiente 
             LIMIT 1";
         break;
-        case 'get_all_cuentahabientes':
-            // Consulta para obtener todos los cuentahabientes
-            $query3 = "SELECT id_cuentahabiente, nombre, email, telefono FROM CUENTAHABIENTE";
-            break;
+
+    case 'get_all_cuentahabientes':
+        // Consulta para obtener todos los cuentahabientes
+        $query = "SELECT id_cuentahabiente, nombre, email, telefono FROM CUENTAHABIENTE";
+        break;
 
     default:
         die("Acción no válida.");
 }
-
-
-
 
 $result = mysqli_query($conn, $query);
 
@@ -49,9 +47,9 @@ if (mysqli_num_rows($result) > 0) {
     echo "<table border='1'>";
     // Mostrar los encabezados de la tabla
     echo "<tr>";
-    echo "<th>ID Cuentahabiente</th><th>Nombre</th>";
+    echo "<th>ID</th><th>Nombre</th>";
     if ($action == 'first_interest') {
-        echo "<th>Interés Ganado</th>";
+        echo "<th>Interés Generado</th>";
     }
     echo "</tr>";
 
@@ -60,9 +58,12 @@ if (mysqli_num_rows($result) > 0) {
         echo "<tr>";
         echo "<td>" . $row['id_cuentahabiente'] . "</td>";
         echo "<td>" . $row['nombre'] . "</td>";
+        
+        // Verificar y mostrar el interés ganado con símbolo de moneda si aplica
         if (isset($row['interes_ganado'])) {
-            echo "<td>" . $row['interes_ganado'] . "</td>";
+            echo "<td>$" . number_format($row['interes_ganado'], 2) . "</td>";
         }
+        
         echo "</tr>";
     }
     echo "</table>";
@@ -70,6 +71,4 @@ if (mysqli_num_rows($result) > 0) {
     echo "No se encontraron resultados.";
 }
 
-
-
-?>
+mysqli_close($conn);
