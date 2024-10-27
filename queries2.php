@@ -42,7 +42,7 @@ $query = ""; // Inicializa la consulta
 
 switch ($action) {
     case 'get_all_cuentahabientes':
-        // Consulta para obtener todos los cuentahabientes y sus inversiones
+        // Consulta para obtener todos los cuentahabientes y sus inversiones ordenados por monto de inversión
         $query = "
             SELECT 
                 c.id_cuentahabiente,
@@ -56,7 +56,9 @@ switch ($action) {
             FROM 
                 CUENTAHABIENTE c
             LEFT JOIN 
-                Inversion i ON c.id_cuentahabiente = i.id_cuentahabiente
+                INVERSION i ON c.id_cuentahabiente = i.id_cuentahabiente
+            ORDER BY 
+                i.monto DESC
         ";
         break;
 

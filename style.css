@@ -1,3 +1,4 @@
+/* Estilo del cuerpo */
 body {
     font-family: Arial, sans-serif;
     background-color: #f5f5f5;
@@ -13,6 +14,7 @@ h1, h2 {
     text-align: center;
 }
 
+/* Estilos del formulario */
 form {
     display: flex;
     flex-direction: column;
@@ -24,8 +26,8 @@ label {
 
 input, button {
     margin-top: 5px;
-    padding: 5px; /* Reduce aún más el padding */
-    font-size: 12px; /* Reduce el tamaño de la fuente */
+    padding: 5px;
+    font-size: 12px;
 }
 
 button {
@@ -40,59 +42,54 @@ button:hover {
     background-color: #218838;
 }
 
-/* Contenedor principal con dos columnas */
+/* Contenedor principal */
 .container {
     display: flex;
     flex-direction: row;
     height: 100vh;
 }
 
-/* Columna izquierda para el formulario */
+/* Columna del formulario */
 .form-column {
-    width: 30%; /* Reduce el ancho de la columna del formulario */
-    padding: 10px; /* Reduce el padding de la columna */
+    width: 30%;
+    padding: 10px;
     background-color: #f4f4f4;
 }
 
-/* Columna derecha para las tablas */
+/* Columna de las tablas */
 .table-column {
-    width: 80%; /* Aumenta el ancho de la columna de las tablas */
+    width: 70%; /* Ajustado para más espacio en tablas */
     display: flex;
     flex-direction: column;
 }
 
-/* Sección superior de la tabla con cuentahabientes */
-.table-section {
-    flex: 1;
-    padding: 20px;
-    overflow-y: auto;
-    border-bottom: 1px solid #ccc;
-}
-
-/* Sección inferior para las consultas */
-.query-section {
-    flex: 1;
-    padding: 20px;
-    overflow-y: auto;
-}
-
-/* Estilos de la tabla */
+/* Estilos de las tablas */
 table {
     width: 100%;
     border-collapse: collapse;
+    margin-bottom: 20px;
+    background-color: #ffffff;
 }
 
 table, th, td {
-    border: 1px solid black;
-    padding: 8px; /* Ajusta el padding de las celdas de la tabla */
+    border: 1px solid #ccc;
+    padding: 8px;
     text-align: left;
 }
 
+/* Encabezado de la tabla */
 th {
-    background-color: #f0f0f0;
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
 }
 
-/* Estilos para los enlaces */
+/* Celdas de la tabla */
+td {
+    color: #333;
+}
+
+/* Estilo de enlaces */
 a {
     display: block;
     margin-top: 10px;
